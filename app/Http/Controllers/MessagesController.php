@@ -14,6 +14,22 @@ class MessagesController extends Controller
             'message'=>'required'
         ]);
 
-        return 'OK!';
+       //Create a new message
+        $message=new Message;
+        $message->name=$request->input('name');
+        $message->email=$request->input('email');
+        $message->message=$request->input('message');
+
+        //Save
+
+        $message->save();
+
+        //Redirect
+
+        return redirect('/')->with('success', 'Message sent! Thanks! :)');
+}
+public function getMessages() {
+$messages=Message::all();
+return view('messages')->with('messages', $messages);
 }
 }
